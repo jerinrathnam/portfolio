@@ -1,10 +1,14 @@
-FROM nginx
+# Use the official Apache base image
+FROM httpd
 
-COPY . /usr/share/nginx/html
+# Copy the HTML file to the Apache document root directory
+COPY . /usr/local/apache2/htdocs/
 
-#COPY /nginx.conf  /etc/nginx/conf.d/default.conf
-COPY nginx.conf /etc/nginx/nginx.conf
+# Copy custom Apache configuration file
+COPY apache.conf /usr/local/apache2/conf/httpd.conf
 
+# Expose the default Apache port
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+# Start the Apache server
+CMD ["httpd", "-D", "FOREGROUND"]
