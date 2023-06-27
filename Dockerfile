@@ -1,7 +1,7 @@
-FROM ubuntu
+FROM nginx:latest
 
-RUN apt-get install inginx
+COPY . /usr/share/nginx/html
 
-WORKDIR /var/www/html/
+COPY /nginx.conf  /etc/nginx/conf.d/default.conf
 
-COPY . .
+EXPOSE 80
