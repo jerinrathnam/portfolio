@@ -1,14 +1,8 @@
-# Use the official Apache base image
-FROM httpd
+# Use the httpd base image
+FROM httpd:latest
 
-# Copy the HTML file to the Apache document root directory
-COPY . /usr/local/apache2/htdocs/
+# Copy the HTML file to the appropriate location
+COPY index.html /usr/local/apache2/htdocs/
 
-# Copy custom Apache configuration file
-COPY apache.conf /usr/local/apache2/conf/httpd.conf
-
-# Expose the default Apache port
+# Expose port 80 (default HTTP port)
 EXPOSE 80
-
-# Start the Apache server
-CMD ["httpd", "-D", "FOREGROUND"]
