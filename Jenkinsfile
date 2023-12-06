@@ -27,7 +27,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script{
-                        docker.withRegistry('https://521503820723.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-credentials') {
+                        docker.withRegistry('https://521503820723.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:gem') {
                     app.push("${env.BUILD_NUMBER}")
                     app.push("latest")
                     }
