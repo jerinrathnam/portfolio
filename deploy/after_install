@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#docker run -itd --name portfolio 521503820723.dkr.ecr.us-east-1.amazonaws.com/portfolio:latest -p 4000:80
+cd /home/ec2/user/pipeline/portfolio
+docker --version
+docker-compose down || echo "no contanier to down"
+docker-compose up  -d --build
