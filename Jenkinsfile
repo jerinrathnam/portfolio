@@ -5,7 +5,7 @@ pipeline {
         AWS_DEFAULT_REGION = 'us-east-1'
         APPLICATION_NAME = 'portfolio-app'
         DEPLOYMENT_GROUP = 'portfolio-deployment-group'
-        S3_BUCKET = 'codepipeline-us-east-1-655442461495'
+        S3_BUCKET = 'gemjerin-atlantis-tf-state'
         S3_KEY = 'portfolio/deployment.zip'
     }
 
@@ -47,7 +47,6 @@ pipeline {
 
         stage('Zip the folder') {
             steps {
-                //def folderToZip = '.'
                 sh "zip -r deployment.zip ."
             }
         }
