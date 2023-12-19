@@ -44,11 +44,18 @@ pipeline {
                 }
             }
         }
+
+        stage('Zip the folder') {
+            steps {
+                def folderToZip = '.'
+                sh "zip -r deployment.zip ."
+            }
+        }
+
         stage('Upload to S3') {
             steps {
                 withAWS(credentials: 'ecr:us-east-1:gem', region: AWS_DEFAULT_REGION) {
-                    sh "zip -r $S3_KEY ./*"
-                    sh "aws s3 cp $S3_KEY s3://$S3_BUCKET/$S3_KEY --recursive"
+                    sh "aws s3 cp deployment.zip s3://$S3_BUCKET/$S3_KEY"
                 }
             }
         }
