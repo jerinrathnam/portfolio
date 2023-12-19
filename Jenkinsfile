@@ -48,7 +48,7 @@ pipeline {
         stage('Zip the folder') {
             steps {
                 def folderToZip = '.'
-                sh "zip -r deployment.zip ."
+                sh "zip -r deployment.zip ${folderToZip}"
             }
         }
 
