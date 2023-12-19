@@ -12,6 +12,6 @@ permissions:
     
 hooks:
   ApplicationStart:
-    - location: deploy/start_server
+    - location: deploy/after_install
       timeout: 300
       runas: root
