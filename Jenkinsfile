@@ -52,17 +52,25 @@ pipeline {
         }
 
         stage('Upload to S3') {
+            environment {
+                AWS_ACCESS_KEY_ID     = credentials('gem_aws_access_key')
+                AWS_SECRET_ACCESS_KEY = credentials('gem_aws_secret_key')
+            }
             steps {
-                withAWS(credentials: 'ecr:us-east-1:gem', region: AWS_DEFAULT_REGION) {
+                //withAWS(credentials: 'ecr:us-east-1:gem', region: AWS_DEFAULT_REGION) {
                     sh "aws s3 cp deployment.zip s3://$S3_BUCKET/$S3_KEY"
-                }
+               // }
             }
         }
         stage('Deploy') {
+            environment {
+                AWS_ACCESS_KEY_ID     = credentials('gem_aws_access_key')
+                AWS_SECRET_ACCESS_KEY = credentials('gem_aws_secret_key')
+            }
             steps {
-                withAWS(credentials: 'ecr:us-east-1:gem', region: AWS_DEFAULT_REGION) {
+                //withAWS(credentials: 'ecr:us-east-1:gem', region: AWS_DEFAULT_REGION) {
                     sh "aws deploy create-deployment --application-name $APPLICATION_NAME --deployment-group-name $DEPLOYMENT_GROUP --s3-location bucket=$S3_BUCKET,key=$S3_KEY,bundleType=zip"
-                }
+                //}
             }
         }
     }
