@@ -70,8 +70,8 @@ pipeline {
             steps {
                 //withAWS(credentials: 'ecr:us-east-1:gem', region: AWS_DEFAULT_REGION) {
                     sh "aws deploy create-deployment --application-name $APPLICATION_NAME --deployment-group-name $DEPLOYMENT_GROUP --s3-location bucket=$S3_BUCKET,key=$S3_KEY,bundleType=zip"
-                    sh "chmod +x ./deploy/script.sh"
-                    sh "./deploy/script.sh"
+                    sh "deployments_json=$(aws deploy list-deployments --application-name $APPLICATION_NAME --deployment-group-name $DEPLOYMENT_GROUP --output json)"
+                    sh "latest_deployment_id=$(cat $deployments_json | jq '.deployments[0]')"
                     sh "aws deploy wait deployment-successful --deployment-id $latest_deployment_id"
                 //}
             }
