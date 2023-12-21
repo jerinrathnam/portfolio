@@ -4,7 +4,7 @@
 deployments_json=$(aws deploy list-deployments --application-name $APPLICATION_NAME --deployment-group-name $DEPLOYMENT_GROUP --output json)
 
 # Extract the latest deployment ID
-latest_deployment_id=$(jq -r '.deployments | max_by(.createTime) | .deploymentId' <<< "$deployments_json")
+latest_deployment_id=$(cat $deployments_json | jq '.deployments[0]')
 
 # Handle potential errors
 if [[ -z "$latest_deployment_id" ]]; then
