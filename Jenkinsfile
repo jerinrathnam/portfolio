@@ -72,7 +72,7 @@ pipeline {
                     sh "aws deploy create-deployment --application-name $APPLICATION_NAME --deployment-group-name $DEPLOYMENT_GROUP --s3-location bucket=$S3_BUCKET,key=$S3_KEY,bundleType=zip"
                     sh "chmod +x ./deploy/script.sh"
                     sh "./deploy/script.sh"
-                    sh "aws deploy wait deployment-successful --deployment-id $latest_deployment_id"
+                    sh "echo Successfully deployed"
                 //}
             }
         }

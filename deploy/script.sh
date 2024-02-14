@@ -9,3 +9,5 @@ latest_deployment_id=$(jq -r '.deployments[0]' <<< "$deployments_json")
 
 # Print the latest deployment ID
 echo "Latest deployment ID: $latest_deployment_id"
+
+aws deploy wait deployment-successful --deployment-id $latest_deployment_id
